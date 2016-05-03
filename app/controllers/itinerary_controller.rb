@@ -2,10 +2,14 @@ class ItineraryController < ApplicationController
 	before_action :authenticate!
 
 	def create
-		@itinerary = current_user.itineraries.create(start_date: params["start_date"],
-																	start_city: params["start_city"],
-																	travel_days: params["travel_days"])
+		local_datetime = params[:local_datetime]
+
+		@itinerary = current_user.itineraries.create(start_date: params["local_datetime"])
 		render "create.json.jbuilder", status: :created
+  
+        s = Seatgeek.new(local_datetime)
+        seatgeek = s.get_first_game
+        render json: seatgeek, status: :ok
 	end
 
 	def update
