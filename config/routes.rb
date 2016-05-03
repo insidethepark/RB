@@ -19,7 +19,7 @@ delete "logout", to: "users#destroy"
 
 post "firstgame", to: "events#create_first_event"
 post "nextgame", to: "events#create_next_event"
-post "firstgamedata", to: "itenerary#create"
+post "firstgamedata", to: "iteneraries#create"
 post "nextgamedata", to: "events#next_event"
 post "itinerary", to: "itinerary#show"
 post "itinerary/:id/pitstop_show/:id", to: "pitstops#show"
