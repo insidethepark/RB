@@ -5,7 +5,6 @@ class ItineraryController < ApplicationController
 		local_datetime = params[:local_datetime]
 
 		@itinerary = current_user.itineraries.create(start_date: params["local_datetime"])
-		render "create.json.jbuilder", status: :created
   
         s = Seatgeek.new(local_datetime)
         seatgeek = s.get_first_game
