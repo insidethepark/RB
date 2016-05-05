@@ -27,7 +27,6 @@ class EventsController < ApplicationController
   end
 
   # private
-  
   # def event_params
   # 	params.permit(:game_number)
   # end
