@@ -1,5 +1,5 @@
 class AuthController < ApplicationController
-	before_action :authenticate!, only: [:check_auth]
+	# before_action :authenticate!, only: [:check_auth]
 
 	def check_auth
 		if current_user
