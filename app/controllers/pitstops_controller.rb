@@ -1,5 +1,4 @@
 class PitstopsController < ApplicationController
-  before_action :authenticate!
 
   def create
     @itinerary = current_user.itineraries.find params["id"]

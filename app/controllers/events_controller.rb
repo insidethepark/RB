@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-  before_action :authenticate!
 
   def create
     @itinerary = current_user.itineraries.find(params[:itinerary_id])
