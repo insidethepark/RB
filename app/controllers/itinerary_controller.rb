@@ -1,12 +1,11 @@
 class ItineraryController < ApplicationController
-	before_action :authenticate!
 
 	def create
 	 	@itinerary = current_user.itineraries.create(start_date: params["local_datetime"])
     	s = Seatgeek.new
     	@seatgeek = s.get_first_game(@itinerary.start_date.strftime("%Y-%m-%d"))
     	# render json: seatgeek, status: :ok
-		render :json => { :itinerary => @itinerary.id, 
+		render :json => { :itinerary => @itinerary.id,
       			          :seatgeek => @seatgeek }
 	end
 
@@ -21,14 +20,14 @@ class ItineraryController < ApplicationController
 	def show
 		@itinerary = current_user.itineraries.find_by(id: params["itinerary_id"])
 		@pitstops = @itinerary.pitstops.last
-		@pitstop_dates = @itinerary.pitstops.pluck(:date_visited).join(",").split(/,/), 
+		@pitstop_dates = @itinerary.pitstops.pluck(:date_visited).join(",").split(/,/),
 						((@itinerary.pitstops.pluck(:date_visited).last.to_date) + 1.day).strftime
 		@game_data = @itinerary.pitstops.includes(:events).pluck(:game_number).join(",")
 		s = Seatgeek.new
 		@seatgeek = s.all_games(@game_data)
 		render :json => { :pitstop_dates => @pitstop_dates,
 			              :seatgeek => @seatgeek }
-	end	
+	end
 
 	def index
 		@itineraries = current_user.itineraries
